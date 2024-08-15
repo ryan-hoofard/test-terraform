@@ -1,0 +1,20 @@
+name: prod terraform w/ oidc
+on:
+  push:
+    branches:
+      - prod
+  pull_request:
+    branches:
+      - prod
+
+jobs:
+  prod-plan:
+    uses: ./.github/workflows/reusable-terraform-workflow.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      environment: prod
+      region: us-west-2
+    secrets: 
+      aws_role: ${{ secrets.AWS_ROLE_PROD }}
