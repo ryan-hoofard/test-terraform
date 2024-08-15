@@ -1,0 +1,23 @@
+name: dev terraform w/ oidc
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  dev-deploy:
+    uses: ./.github/workflows/reusable-terraform-workflow.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      region: us-west-2
+      environment: dev
+    secrets: 
+      aws_role: ${{ secrets.AWS_ROLE_DEV }}
+
+
+  
